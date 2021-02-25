@@ -10,11 +10,6 @@ class ApplicationController < Sinatra::Base
         set :views, "app/views"
       end
 
-
-      get '/signup' do 
-        erb :signup
-      end
-
       get '/login' do 
         erb :login
       end
@@ -29,6 +24,10 @@ class ApplicationController < Sinatra::Base
 
         User.find(session[:user_id])
         
+      end
+
+      def logged_in?
+        !!current_user
       end
 
 

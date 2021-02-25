@@ -1,5 +1,7 @@
 class Movie < ActiveRecord::Base
-
-    belongs_to :user
+#second steps?
+    belongs_to :user 
+    #next? #create validate methods
+    validates :title, :released_year, presence: true
     
 end
