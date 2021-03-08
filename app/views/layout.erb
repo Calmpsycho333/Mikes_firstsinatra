@@ -9,13 +9,19 @@
 </head>
 <body>
     <header>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">Signup</a>
-            <a href="#">Login</a>
-            <a href="#">Movies</a>
-        </nav>
+        <% if logged_in? %>
+            <nav>
+                <a href="/users/welcome">Home</a>
+                <a href="#">Movies</a>
+                <a href="/logout">Logout</a>
+            </nav>
+        <% else %>
+            <h1>Spooky Movies</h1>
+        <% end %>
     </header>
+    <div>
+        <h2><%= @error if @error.present? %></h2>
+    </div>
     <%= yield %>
     <footer>
         Made by Michael

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
     get '/signup' do 
-
+        redirect_if_logged_in
         erb :signup
 
     end
@@ -10,7 +10,7 @@ class UsersController < ApplicationController
         user = User.new(params)
         if user.save
             session[:user_id] = user.id
-            redirect 'user/welcome'
+            redirect '/users/welcome'
         else
             @error = "Invalid credentials.  Please try again."
             erb :'/signup'
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
 
         if user && user.authenticate(params[:password])
             session[:user_id] = user.id
-            redirect 'user/welcome'
+            redirect '/users/welcome'
         elsif user
             @error = "Invalid password.  Please try again."
             erb :'/login'
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
         redirect "/"
     end
 
-    get 'users/welcome' do
+    get '/users/welcome' do
         if logged_in?
             @user = current_user
             @movies = "the current user's movies"
