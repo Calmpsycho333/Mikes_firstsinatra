@@ -1,11 +1,13 @@
 class MoviesController < ApplicationController
 
-  get '/movies/index' do 
-
+  get '/movies' do 
+    @movies = Movie.all
+    erb :'/movies/index'
   end
 
   get '/movies/new' do
-
+    #redirect_if_logged_out
+    erb :'/movies/new'
   end
 
   post '/movie' do 

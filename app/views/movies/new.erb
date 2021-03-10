@@ -1,0 +1,21 @@
+<h1>Add a movie...</h1>
+<form method="post" action="/movie">
+
+    <div>
+        <label for="title">Movie Title</label>
+        <input id="title" type="text" name="title"/>
+    </div>
+    <div>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" rows="5"></textarea>
+    </div>
+    <div>
+        <label for="genre">Movie genre:</label>
+        <input id="genre" type="text" name="genre"/>
+    </div>
+    <div>
+        <label for="release_yr">Movie Date:</label>
+        <input type="date" id="release_yr" name="release_yr"/>
+    </div>
+    <button type="submit">Add movie</button>
+</form>

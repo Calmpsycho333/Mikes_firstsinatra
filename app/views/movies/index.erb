@@ -1,0 +1,10 @@
+<h1>This is the Movie index page</h1>
+<a href="/movies/new">Add a movie</a>
+<% if @movies.count > 0 %>
+    <h2>All the movies:</h2>
+    <% @movies.each do |movie| %>
+        <div><% movie.title %></div>
+    <% end %>
+<% else %>
+    <h2>No movies are here, yet.</h2>
+<% end %>
