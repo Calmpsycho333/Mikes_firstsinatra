@@ -1,5 +1,14 @@
 <h1><%= @movie.title %></h1>
 <br>
+<% if @movie.user_id == current_user.id %>
+    <a href="/movies/edit/<%= @movie.id %>">
+        <button>Edit this movie information</button>
+    </a>
+    <form method="post" action="/movies/<%= @movie.id %>">
+        <input type="hidden" name="_method" value="delete" />
+        <button type="submit">Delete this movie information</button>
+    </form>
+<% end %>
 <h2>Description:</h2>
 <p><%= @movie.description %></p>
 <h2>Genre:</h2>

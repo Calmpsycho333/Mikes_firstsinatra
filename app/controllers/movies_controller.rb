@@ -28,14 +28,48 @@ class MoviesController < ApplicationController
   end
 
   #Update Routes
-  get 'movies/edit/:id' do
+  get '/movies/edit/:id' do
+    redirect_if_logged_out
+    @movie = Movie.find(params[:id])
+    redirect_if_not_owner(@movie)
+    erb :'/movies/edit'
   end
 
-  patch 'movies/edit/:id' do
+  patch '/movies/edit/:id' do
+    redirect_if_logged_out
+    movie = Movie.find(params[:id])
+    redirect_if_not_owner(movie)
+    data = {
+      title: params[:title],
+      description: params[:description],
+      genre: params[:genre],
+      release_year: params[:release_year],
+    }
+     if movie.update(data)
+      redirect "/movies/#{movie.id}"
+     else
+      @error = "Invalid movie edit."
+      redirect :"/movies/edit/#{movie.id}"
+     end
   end
 
   #Delete Route
-  delete 'movies/:id' do
+  delete '/movies/:id' do
+    redirect_if_logged_out
+    movie = Movie.find(params[:id])
+    redirect_if_not_owner(movie)
+    if movie.destroy
+      redirect '/movies'
+    else
+      @error = "Invalid delete"
+      redirect "/movies/#{movie.id}"
+    end
+  end
+
+  def redirect_if_not_owner(movie)
+    if !(movie.user_id == current_user.id)
+      redirect '/movies'
+    end
   end
 
 end

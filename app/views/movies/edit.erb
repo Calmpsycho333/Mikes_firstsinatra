@@ -1,0 +1,21 @@
+<h1>Edit information about <%= @movie.title %>...</h1>
+<form method="post" action="/movies/edit/<%= @movie.id %>">
+    <input type="hidden" name="_method" value="patch" />
+    <div>
+        <label for="title">Movie Title</label>
+        <input id="title" type="text" value="<%= @movie.title %>" name="title" required/>
+    </div>
+    <div>
+        <label for="description">Description:</label>
+        <textarea id="description" value="<%= @movie.description %>" name="description" rows="5"><%= @movie.description %></textarea>
+    </div>
+    <div>
+        <label for="genre">Movie genre:</label>
+        <input id="genre" type="text" value="<%= @movie.genre %>" name="genre"/>
+    </div>
+    <div>
+        <label for="release_yr">Movie Release Date:</label>
+        <input type="date" id="release_yr" value="<%= @movie.release_year %>" name="release_year" required/>
+    </div>
+    <button type="submit">Edit movie</button>
+</form>
