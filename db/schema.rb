@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 2021_03_08_185340) do
     t.string "genre"
     t.string "description"
     t.datetime "release_year"
+    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|

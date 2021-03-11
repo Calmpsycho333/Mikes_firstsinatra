@@ -3,39 +3,47 @@
 class ApplicationController < Sinatra::Base
 
 
-    configure do
-        set :public_folder, "public"
-        enable :sessions
-        set :session_secret, "password"
-        set :views, "app/views"
-      end
+  configure do
+    set :public_folder, "public"
+    enable :sessions
+    set :session_secret, "password"
+    set :views, "app/views"
+  end
 
-      get '/login' do
-        redirect_if_logged_in 
-        erb :login
-      end
+  get '/login' do
+    redirect_if_logged_in 
+    erb :login
+  end
 
-      get '/' do
-        redirect_if_logged_in
-        erb :index 
+  get '/' do
+    redirect_if_logged_in
+    erb :index 
 
-      end 
+  end 
 
-      def current_user
+  def current_user
+    @current_user ||= User.find(session[:user_id])
+  end
 
-        @current_user ||= User.find(session[:user_id])
-        
-      end
+  def logged_in?
+    !!session[:user_id]
+  end
 
-      def logged_in?
-        !!session[:user_id]
-      end
+  def redirect_if_logged_in
+    if logged_in?
+      redirect '/users/welcome'
+    end
+  end
 
-      def redirect_if_logged_in
-        if logged_in?
-          redirect '/users/welcome'
-        end
+  def redirect_if_logged_out
+    if !logged_in?
+      redirect '/login'
+    end
+  end
 
-      end
-
+  not_found do
+    status 404
+    erb :error
+  end
+    
 end
